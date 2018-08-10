@@ -8,6 +8,8 @@ class config_manager:
             with open(root_path + '/.vim-sync', 'r') as f:
                 self.load_array = json.load(f)
             for element in self.load_array:
+                if element['dest'][-1] != '/':
+                    element['dest'] = element['dest'] + '/'
                 if element['marked'] == 1:
                     self.marked.append(element)
 
