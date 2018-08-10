@@ -17,3 +17,11 @@ function VimForceSyncFun()
 endfun
 
 command -nargs=0 VimForceSync call VimForceSyncFun()
+
+function VimSyncAddFile()
+    let cur_file = expand('%')
+    let cmd = 'py3 file_syncer.file_sync_mgr_singleton.add_file("'.cur_file.'")'
+    execute cmd
+endfun
+
+au BufWritePost * call VimSyncAddFile()
