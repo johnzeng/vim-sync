@@ -50,6 +50,9 @@ class file_sync_mgr:
             self.clean_file(element["dest"])
 
     def add_file(self, file_name):
+        if file_name == '.vim-sync':
+            config_loader.cfg_mgr_singlen.reload()
+            return
         if not config_loader.cfg_mgr_singlen.is_loaded():
             return
         for key in self.recent_list:
