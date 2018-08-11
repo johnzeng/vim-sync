@@ -7,14 +7,22 @@ class config_manager:
             self.marked = []
             with open(root_path + '/.vim-sync', 'r') as f:
                 self.load_array = json.load(f)
-            for element in self.load_array:
-                if element['dest'][-1] != '/':
-                    element['dest'] = element['dest'] + '/'
-                if element['marked'] == 1:
-                    self.marked.append(element)
+                for element in self.load_array:
+                    if element['dest'][-1] != '/':
+                        element['dest'] = element['dest'] + '/'
+                    if 'sync_frequence' not in element:
+                        element['sync_frequence'] = 1
+
+                    if 'marked' in element and element['marked'] == 1:
+                        self.marked.append(element)
+            self.is_load = True
 
         except Exception as err :
             self.is_load = False
+            self.load_array = []
+
+    def is_loaded(self):
+        return self.is_load
 
     def get_marked(self):
         return self.marked
